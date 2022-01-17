@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: account-service-pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: account-service-pod
+    spec:
+      containers:
+        - name: account-service-container
+          image: europe-west2-docker.pkg.dev/java-microservice-2022/ms-containers/ms.client.account.gcp
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            initialDelaySeconds: 20
+            httpGet:
+              port: 8080
+              path: /actuator/health
+          readinessProbe:
+            initialDelaySeconds: 30
+            httpGet:
+              port: 8080
+              path: /actuator/health
