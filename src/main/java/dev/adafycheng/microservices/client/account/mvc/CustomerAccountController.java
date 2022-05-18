@@ -2,6 +2,7 @@ package dev.adafycheng.microservices.client.account.mvc;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class CustomerAccountController {
         return customerAccountRepository.findByLastName(name);
     }
 
-    @PostMapping("/api/customerAccounts")
+    @PostMapping(name="/api/customerAccounts", consumes = MediaType.APPLICATION_JSON_VALUE)
     public CustomerAccount saveCustomerAccount(@RequestBody CustomerAccount customerAccount) {
         log.debug("->saveCustomerAccount {}", customerAccount);
         return customerAccountRepository.save(customerAccount);
