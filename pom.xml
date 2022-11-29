@@ -18,7 +18,9 @@
         <spring-cloud-gcp.version>1.2.8.RELEASE</spring-cloud-gcp.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
 
+        <gmavenplus-plugin.version>2.1.0</gmavenplus-plugin.version>
         <jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
+        <spock.version>2.3-groovy-3.0</spock.version>
 
         <!-- Dependencies for fixing vulnerabilities.  Can be removed once fixed in future upgrade -->
         <google-oauth-client.version>1.34.1</google-oauth-client.version>
@@ -31,40 +33,55 @@
     </properties>
 
     <dependencies>
+        <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-gcp-data-datastore</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-gcp-starter-data-datastore</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- Spring Cloud GCP Data -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-gcp-data-datastore</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-gcp-starter-data-datastore</artifactId>
+        </dependency>
+
+        <!-- Eureka -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+        <!-- Utilities -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
+        <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${spock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <version>${spock.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -159,6 +176,34 @@
                     <to>
                         <image>europe-west2-docker.pkg.dev/java-microservice-2022/ms-containers/${project.artifactId}</image>
                     </to>
+                </configuration>
+            </plugin>
+
+            <!-- Spock tests -->
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>${gmavenplus-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>addTestSources</goal>
+                            <goal>compile</goal>
+                            <goal>compileTests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Spec</include>
+                        <include>**/*SpecIT</include>
+                    </includes>
+                    <failIfNoTests>true</failIfNoTests>
                 </configuration>
             </plugin>
         </plugins>
