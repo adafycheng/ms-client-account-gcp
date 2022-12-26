@@ -29,7 +29,7 @@
         <protobuf-java.version>3.21.9</protobuf-java.version>
         <snakeyaml.version>1.33</snakeyaml.version>
         <woodstox-core.version>6.4.0</woodstox-core.version>
-        <xstream.version>1.4.19</xstream.version>
+        <xstream.version>1.4.20</xstream.version>
     </properties>
 
     <dependencies>
