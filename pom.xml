@@ -27,7 +27,7 @@
         <httpclient.version>4.5.13</httpclient.version>
         <jettison.version>1.5.2</jettison.version>
         <protobuf-java.version>3.21.9</protobuf-java.version>
-        <snakeyaml.version>1.33</snakeyaml.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
         <woodstox-core.version>6.4.0</woodstox-core.version>
         <xstream.version>1.4.19</xstream.version>
     </properties>
